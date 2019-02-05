@@ -37,7 +37,4 @@ describe 'mongo::default' do
   it "should install apt from a recipe" do
       expect(chef_run).to include_recipe("apt")
     end
-    # it "should update apt" do
-    #     expect(chef_run).to update("apt")
-    #   end
   end
