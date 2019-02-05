@@ -13,6 +13,10 @@ unless os.windows?
 end
 
 # This is an example test, replace it with your own test.
-describe port(80), :skip do
-  it { should_not be_listening }
+describe port(27071) do
+  it { should be_listening }
+end
+
+describe service "mongodb" do
+  it {should be_installed}
 end

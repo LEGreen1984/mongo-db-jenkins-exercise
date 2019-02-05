@@ -20,16 +20,24 @@ describe 'mongo::default' do
     end
   end
 
-  context 'When all attributes are default, on CentOS 7.4.1708' do
-    let(:chef_run) do
-      # for a complete list of available platforms and versions see:
-      # https://github.com/customink/fauxhai/blob/master/PLATFORMS.md
-      runner = ChefSpec::ServerRunner.new(platform: 'centos', version: '7.4.1708')
-      runner.converge(described_recipe)
-    end
-
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
     end
+
+    it "should install mongodb" do
+      expect(chef_run).to install_package("mongodb")
   end
-end
+
+  it "should enable mongodb as a service" do
+    expect(chef_run).to enable_service("mongodb")
+  end
+  it "should be running" do
+    expect(chef_run).to start_service("mongodb")
+  end
+  it "should install apt from a recipe" do
+      expect(chef_run).to include_recipe("apt")
+    end
+    # it "should update apt" do
+    #     expect(chef_run).to update("apt")
+    #   end
+  end
