@@ -13,10 +13,12 @@ unless os.windows?
 end
 
 # This is an example test, replace it with your own test.
-describe port(27071) do
+describe port(27017) do
   it { should be_listening }
+  its('addresses') {should include '0.0.0.0'}
 end
 
-describe service "mongodb" do
-  it {should be_installed}
+describe package("mongodb-org") do
+  it { should be_installed }
+  its("version") { should match /3\./ }
 end
