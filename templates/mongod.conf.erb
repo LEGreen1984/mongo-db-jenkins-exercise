@@ -1,18 +1,39 @@
-worker_processes  1;
-events {
-    worker_connections  1024;
-}
-http {
-    include       mime.types;
-    default_type  application/octet-stream;
-    sendfile        on;
+# mongod.conf
 
-    server {
-        listen       80;
-        server_name  localhost;
+# for documentation of all options, see:
+#   http://docs.mongodb.org/manual/reference/configuration-options/
 
-        location / {
-          proxy_pass          http://localhost:<%= @proxy_port %>;
-        }
-    }
-}
+# Where and how to store data.
+storage:
+  dbPath: /var/lib/mongodb
+  journal:
+    enabled: true
+#  engine:
+#  mmapv1:
+#  wiredTiger:
+
+# where to write logging data.
+systemLog:
+  destination: file
+  logAppend: true
+  path: /var/log/mongodb/mongod.log
+
+# network interfaces
+net:
+  port: <%= @proxy_port %>
+  bindIp: <%= @bindIp %>
+
+
+#processManagement:
+
+#security:
+
+#operationProfiling:
+
+#replication:
+
+#sharding:
+
+## Enterprise-Only Options:
+
+#auditLog:
