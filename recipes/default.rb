@@ -26,5 +26,6 @@ end
 template "/etc/mongod.conf" do
   source "mongod.conf.erb"
   variables proxy_port: node["mongod"]["proxy_port"]
+  variables bindIp: node["mongod"]["bindIp"]
   notifies :restart, "service[mongod]"
 end
