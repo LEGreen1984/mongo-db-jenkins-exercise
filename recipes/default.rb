@@ -23,9 +23,10 @@ end
 service("mongod") do
   action [:enable, :start]
 end
+
 template "/etc/mongod.conf" do
   source "mongod.conf.erb"
-  variables (
+  variables(
     proxy_port: node["mongod"]["proxy_port"],
     bindIp: node["mongod"]["bindIp"]
   )
